@@ -23,8 +23,8 @@ The YOLO detection model must be manually downloaded:
 ### Core Components
 
 **Main API (`age_recognize/__init__.py`)**
-- `run_age_recognize(img, yolo_weights=None, mivolo_model_path=None)` - Simple API function
-- Returns list of dicts with age, gender, and gender_probability
+- Exports `EnhancedAgeRecognizer` class for creating recognizer instances
+- Library usage requires creating an instance of `EnhancedAgeRecognizer`
 
 **Enhanced Age Recognizer (`age_recognize/recognizer.py`)**
 - `EnhancedAgeRecognizer` - Main orchestrator class combining detection, cropping, and inference

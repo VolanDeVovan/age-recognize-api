@@ -9,12 +9,11 @@ import os
 from PIL import Image
 
 # Import the age_recognize package
-from age_recognize import run_age_recognize
-from age_recognize.recognizer import EnhancedAgeRecognizer
+from age_recognize import EnhancedAgeRecognizer
 
 
 def example_basic_usage():
-    """Example using the simple API function."""
+    """Example using the EnhancedAgeRecognizer class."""
     print("=== Basic Usage Example ===")
     
     # Load an image
@@ -23,7 +22,8 @@ def example_basic_usage():
     if os.path.exists(image_path):
         # Using PIL Image with default models
         img = Image.open(image_path)
-        results = run_age_recognize(img)
+        recognizer = EnhancedAgeRecognizer()
+        results = recognizer.run_age_recognize(img)
         
         print(f"Found {len(results)} people:")
         for i, result in enumerate(results):
@@ -44,27 +44,23 @@ def example_custom_model_paths():
         
         # Example 1: Custom YOLO model path only
         print("Using custom YOLO model path:")
-        results = run_age_recognize(
-            img, 
-            yolo_weights="models/age/yolov8x_person_face.pt"
-        )
+        recognizer = EnhancedAgeRecognizer(yolo_weights="models/age/yolov8x_person_face.pt")
+        results = recognizer.run_age_recognize(img)
         print(f"  Found {len(results)} people with custom YOLO model")
         
         # Example 2: Custom MiVOLO model path only
         print("Using custom MiVOLO model path:")
-        results = run_age_recognize(
-            img, 
-            mivolo_model_path="./models/mivolo_v2_local"
-        )
+        recognizer = EnhancedAgeRecognizer(mivolo_model_path="./models/mivolo_v2_local")
+        results = recognizer.run_age_recognize(img)
         print(f"  Found {len(results)} people with custom MiVOLO model")
         
         # Example 3: Both custom model paths
         print("Using both custom model paths:")
-        results = run_age_recognize(
-            img,
+        recognizer = EnhancedAgeRecognizer(
             yolo_weights="models/age/yolov8x_person_face.pt",
             mivolo_model_path="iitolstykh/mivolo_v2"
         )
+        results = recognizer.run_age_recognize(img)
         print(f"  Found {len(results)} people with both custom models")
         
     else:

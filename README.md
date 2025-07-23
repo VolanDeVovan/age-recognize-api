@@ -49,13 +49,14 @@ python cache.py --example
 
 ```python
 from PIL import Image
-from age_recognize import run_age_recognize
+from age_recognize import EnhancedAgeRecognizer
 
 # Load image
 img = Image.open("your_image.jpg")
 
-# Get age and gender predictions
-results = run_age_recognize(img)
+# Create recognizer instance and get age and gender predictions
+recognizer = EnhancedAgeRecognizer()
+results = recognizer.run_age_recognize(img)
 
 for result in results:
     print(f"Age: {result['age']:.1f}, Gender: {result['gender']} ({result['gender_probability']:.2f})")
@@ -162,15 +163,6 @@ The examples demonstrate:
 - HuggingFace model usage
 
 ## API Reference
-
-### `run_age_recognize(img)`
-Simple function for age/gender recognition.
-
-**Parameters:**
-- `img`: PIL Image or numpy array (RGB for PIL, BGR for numpy)
-
-**Returns:**
-- List of dictionaries with `age`, `gender`, `gender_probability`
 
 ### `EnhancedAgeRecognizer`
 Main class for age recognition with full control.
