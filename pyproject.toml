@@ -1,5 +1,5 @@
 [project]
-name = "age-recognize-api"
+name = "age_recognize"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
@@ -35,3 +35,8 @@ mivolo = { git = "https://github.com/WildChlamydia/MiVOLO.git", rev = "714f107bb
 name = "pytorch"
 url = "https://download.pytorch.org/whl/cu128"
 explicit = true
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
