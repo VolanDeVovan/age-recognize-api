@@ -2,6 +2,8 @@
 
 A Python package for age and gender recognition from images using the MiVOLO v2 model with YOLO person/face detection.
 
+This repository is inspired by and uses models from [WildChlamydia/MiVOLO](https://github.com/WildChlamydia/MiVOLO).
+
 ## Features
 
 - **Age and gender prediction** from face and body images
