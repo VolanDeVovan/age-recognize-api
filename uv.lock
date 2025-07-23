@@ -16,11 +16,35 @@ dependencies = [
     { name = "numpy" },
     { name = "omegaconf" },
     { name = "pillow" },
+    { name = "transformers" },
+    { name = "ultralytics" },
+]
+
+[package.optional-dependencies]
+torch-cpu = [
     { name = "torch" },
     { name = "torchaudio" },
     { name = "torchvision" },
-    { name = "transformers" },
-    { name = "ultralytics" },
+]
+torch-cuda = [
+    { name = "torch" },
+    { name = "torchaudio" },
+    { name = "torchvision" },
+]
+torch-cuda118 = [
+    { name = "torch" },
+    { name = "torchaudio" },
+    { name = "torchvision" },
+]
+torch-cuda121 = [
+    { name = "torch" },
+    { name = "torchaudio" },
+    { name = "torchvision" },
+]
+torch-cuda128 = [
+    { name = "torch" },
+    { name = "torchaudio" },
+    { name = "torchvision" },
 ]
 
 [package.dev-dependencies]
@@ -33,15 +57,28 @@ torch = [
 [package.metadata]
 requires-dist = [
     { name = "mivolo", git = "https://github.com/WildChlamydia/MiVOLO.git?rev=714f107bb9c64fe12d82b6ed8141a800545176db" },
-    { name = "numpy", specifier = ">=2.3.1" },
+    { name = "numpy", specifier = ">=2.0.0" },
     { name = "omegaconf", specifier = ">=2.3.0" },
-    { name = "pillow", specifier = ">=11.3.0" },
-    { name = "torch", index = "https://download.pytorch.org/whl/cu128" },
-    { name = "torchaudio", index = "https://download.pytorch.org/whl/cu128" },
-    { name = "torchvision", index = "https://download.pytorch.org/whl/cu128" },
-    { name = "transformers", specifier = ">=4.53.3" },
+    { name = "pillow", specifier = ">=10.0.0" },
+    { name = "torch", marker = "extra == 'torch-cpu'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torch", marker = "extra == 'torch-cuda'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torch", marker = "extra == 'torch-cuda118'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torch", marker = "extra == 'torch-cuda121'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torch", marker = "extra == 'torch-cuda128'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchaudio", marker = "extra == 'torch-cpu'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchaudio", marker = "extra == 'torch-cuda'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchaudio", marker = "extra == 'torch-cuda118'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchaudio", marker = "extra == 'torch-cuda121'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchaudio", marker = "extra == 'torch-cuda128'", specifier = ">=2.0.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchvision", marker = "extra == 'torch-cpu'", specifier = ">=0.15.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchvision", marker = "extra == 'torch-cuda'", specifier = ">=0.15.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchvision", marker = "extra == 'torch-cuda118'", specifier = ">=0.15.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchvision", marker = "extra == 'torch-cuda121'", specifier = ">=0.15.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchvision", marker = "extra == 'torch-cuda128'", specifier = ">=0.15.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "transformers", specifier = ">=4.50.0" },
     { name = "ultralytics", specifier = ">=8.1.0" },
 ]
+provides-extras = ["torch-cpu", "torch-cuda", "torch-cuda118", "torch-cuda121", "torch-cuda128"]
 
 [package.metadata.requires-dev]
 torch = [

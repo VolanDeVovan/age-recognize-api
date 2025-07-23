@@ -4,19 +4,42 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "mivolo",
-    "numpy>=2.3.1",
+    "numpy>=2.0.0",
     "omegaconf>=2.3.0",
-    "pillow>=11.3.0",
-    "torch",
-    "torchaudio",
-    "torchvision",
-    "transformers>=4.53.3",
+    "pillow>=10.0.0",
+    "transformers>=4.50.0",
     "ultralytics>=8.1.0",
 ]
 
+[project.optional-dependencies]
+torch-cpu = [
+    "torch>=2.0.0",
+    "torchaudio>=2.0.0", 
+    "torchvision>=0.15.0",
+]
+torch-cuda = [
+    "torch>=2.0.0",
+    "torchaudio>=2.0.0",
+    "torchvision>=0.15.0",
+]
+torch-cuda118 = [
+    "torch>=2.0.0",
+    "torchaudio>=2.0.0",
+    "torchvision>=0.15.0",
+]
+torch-cuda121 = [
+    "torch>=2.0.0", 
+    "torchaudio>=2.0.0",
+    "torchvision>=0.15.0",
+]
+torch-cuda128 = [
+    "torch>=2.0.0",
+    "torchaudio>=2.0.0", 
+    "torchvision>=0.15.0",
+]
 
 # ================================
-# PyTorch
+# PyTorch (for development)
 # ================================
 [dependency-groups]
 torch = [
@@ -26,10 +49,11 @@ torch = [
 ]
 
 [tool.uv.sources]
+mivolo = { git = "https://github.com/WildChlamydia/MiVOLO.git", rev = "714f107bb9c64fe12d82b6ed8141a800545176db" }
+# PyTorch sources only for development dependency group
 torch = { index = "pytorch" }
 torchaudio = { index = "pytorch" }
 torchvision = { index = "pytorch" }
-mivolo = { git = "https://github.com/WildChlamydia/MiVOLO.git", rev = "714f107bb9c64fe12d82b6ed8141a800545176db" }
 
 [[tool.uv.index]]
 name = "pytorch"
