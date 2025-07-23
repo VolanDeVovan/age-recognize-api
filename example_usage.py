@@ -75,6 +75,85 @@ def example_advanced_usage():
         print(f"Image not found: {image_path}")
 
 
+def example_local_model():
+    """Example using local MiVOLO model path."""
+    print("\n=== Local Model Usage Example ===")
+    
+    # Check if local model exists
+    local_model_path = "./models/mivolo_v2_local"
+    
+    if not os.path.exists(local_model_path):
+        print(f"Local model not found at '{local_model_path}'")
+        print("To download the model locally, run:")
+        print(f"  python cache.py --model iitolstykh/mivolo_v2 --save-path {local_model_path}")
+        print("Skipping local model example...")
+        return
+    
+    # Initialize recognizer with local model path
+    from age_recognize.inference import TransformersInferenceEngine
+    
+    try:
+        recognizer = EnhancedAgeRecognizer(
+            device="cuda",
+            verbose=True
+        )
+        
+        # Override the inference engine with local model
+        recognizer.inference_engine = TransformersInferenceEngine(
+            model_path=local_model_path,
+            device="cuda"
+        )
+        
+        image_path = "mock.jpg"
+        
+        if os.path.exists(image_path):
+            img = Image.open(image_path)
+            results = recognizer.run_age_recognize(img)
+            
+            print(f"Found {len(results)} people with local model:")
+            for i, result in enumerate(results):
+                print(f"  Person {i+1}: Age={result['age']:.1f}, "
+                      f"Gender={result['gender']} ({result['gender_probability']:.2f})")
+        else:
+            print(f"Image not found: {image_path}")
+            
+    except Exception as e:
+        print(f"Error loading local model: {e}")
+        print("Make sure the model was downloaded correctly with cache.py")
+
+
+def example_huggingface_model():
+    """Example using Hugging Face model (default)."""
+    print("\n=== Hugging Face Model Usage Example ===")
+    
+    # Initialize recognizer with HuggingFace hub model (default)
+    from age_recognize.inference import TransformersInferenceEngine
+    
+    recognizer = EnhancedAgeRecognizer(
+        device="cuda",
+        verbose=True
+    )
+    
+    # Override the inference engine with specific HF model
+    recognizer.inference_engine = TransformersInferenceEngine(
+        model_path="iitolstykh/mivolo_v2",  # HuggingFace hub model
+        device="cuda"
+    )
+    
+    image_path = "mock.jpg"
+    
+    if os.path.exists(image_path):
+        img = Image.open(image_path)
+        results = recognizer.run_age_recognize(img)
+        
+        print(f"Found {len(results)} people with HuggingFace model:")
+        for i, result in enumerate(results):
+            print(f"  Person {i+1}: Age={result['age']:.1f}, "
+                  f"Gender={result['gender']} ({result['gender_probability']:.2f})")
+    else:
+        print(f"Image not found: {image_path}")
+
+
 def main():
     """Run all examples."""
     print("Age Recognition API Usage Examples - PIL Image")
@@ -82,6 +161,8 @@ def main():
     
     example_basic_usage()
     example_advanced_usage()
+    example_local_model()
+    example_huggingface_model()
     
     print("\n" + "=" * 50)
     print("Examples completed!")
