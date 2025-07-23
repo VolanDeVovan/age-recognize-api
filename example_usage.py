@@ -21,7 +21,7 @@ def example_basic_usage():
     image_path = "mock.jpg"
     
     if os.path.exists(image_path):
-        # Using PIL Image
+        # Using PIL Image with default models
         img = Image.open(image_path)
         results = run_age_recognize(img)
         
@@ -33,12 +33,52 @@ def example_basic_usage():
         print(f"Image not found: {image_path}")
 
 
+def example_custom_model_paths():
+    """Example using custom model paths."""
+    print("\n=== Custom Model Paths Example ===")
+    
+    image_path = "mock.jpg"
+    
+    if os.path.exists(image_path):
+        img = Image.open(image_path)
+        
+        # Example 1: Custom YOLO model path only
+        print("Using custom YOLO model path:")
+        results = run_age_recognize(
+            img, 
+            yolo_weights="models/age/yolov8x_person_face.pt"
+        )
+        print(f"  Found {len(results)} people with custom YOLO model")
+        
+        # Example 2: Custom MiVOLO model path only
+        print("Using custom MiVOLO model path:")
+        results = run_age_recognize(
+            img, 
+            mivolo_model_path="./models/mivolo_v2_local"
+        )
+        print(f"  Found {len(results)} people with custom MiVOLO model")
+        
+        # Example 3: Both custom model paths
+        print("Using both custom model paths:")
+        results = run_age_recognize(
+            img,
+            yolo_weights="models/age/yolov8x_person_face.pt",
+            mivolo_model_path="iitolstykh/mivolo_v2"
+        )
+        print(f"  Found {len(results)} people with both custom models")
+        
+    else:
+        print(f"Image not found: {image_path}")
+
+
 def example_advanced_usage():
     """Example using the EnhancedAgeRecognizer class directly."""
     print("\n=== Advanced Usage Example ===")
     
-    # Initialize recognizer with custom settings
+    # Initialize recognizer with custom settings and model paths
     recognizer = EnhancedAgeRecognizer(
+        yolo_weights="models/age/yolov8x_person_face.pt",
+        mivolo_model_path="iitolstykh/mivolo_v2",
         device="cuda",  # or "cpu" if no GPU available
         verbose=True    # Enable detailed logging
     )
@@ -160,6 +200,7 @@ def main():
     print("=" * 50)
     
     example_basic_usage()
+    example_custom_model_paths()
     example_advanced_usage()
     example_local_model()
     example_huggingface_model()

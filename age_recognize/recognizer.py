@@ -18,6 +18,7 @@ class EnhancedAgeRecognizer:
     def __init__(
         self, 
         yolo_weights: str = "models/age/yolov8x_person_face.pt",
+        mivolo_model_path: str = "iitolstykh/mivolo_v2",
         device: str = "cuda",
         verbose: bool = False
     ):
@@ -26,6 +27,7 @@ class EnhancedAgeRecognizer:
         
         Args:
             yolo_weights: Path to YOLO model weights
+            mivolo_model_path: Path to MiVOLO model (local path or HuggingFace hub)
             device: Device to run inference on
             verbose: Enable verbose logging
         """
@@ -39,7 +41,10 @@ class EnhancedAgeRecognizer:
             verbose=verbose
         )
         self.cropper = CropExtractor()
-        self.inference_engine = TransformersInferenceEngine(device=device)
+        self.inference_engine = TransformersInferenceEngine(
+            model_path=mivolo_model_path, 
+            device=device
+        )
         
         if verbose:
             print(f"Enhanced Age Recognizer initialized with device: {device}")
