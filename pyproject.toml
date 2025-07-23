@@ -1,0 +1,37 @@
+[project]
+name = "age-recognize-api"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "mivolo",
+    "numpy>=2.3.1",
+    "omegaconf>=2.3.0",
+    "pillow>=11.3.0",
+    "torch",
+    "torchaudio",
+    "torchvision",
+    "transformers>=4.53.3",
+    "ultralytics>=8.1.0",
+]
+
+
+# ================================
+# PyTorch
+# ================================
+[dependency-groups]
+torch = [
+    "torch==2.7.1+cu128",
+    "torchaudio==2.7.1+cu128",
+    "torchvision==0.22.1+cu128",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch" }
+torchaudio = { index = "pytorch" }
+torchvision = { index = "pytorch" }
+mivolo = { git = "https://github.com/WildChlamydia/MiVOLO.git", rev = "714f107bb9c64fe12d82b6ed8141a800545176db" }
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
