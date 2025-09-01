@@ -21,7 +21,7 @@ class YOLODetector:
         device: str = "cuda",
         half: bool = True,
         verbose: bool = False,
-        conf_thresh: float = 0.4,
+        conf_thresh: float = 0.7,
         iou_thresh: float = 0.7,
     ):
         """
